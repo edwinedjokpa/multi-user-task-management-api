@@ -60,8 +60,9 @@ This is a list of things you will need to use the software and how I got to work
    ```
 2. create db in local postgres
 3. create a .env file in root folder, copy and replace everything in .env.example and fill in with your credentials
-4. run application with npm run start:dev
-5. use http://localhost:5000/api/ to test endpoint with swagger
+4. run migrations with npm run migration:run
+5. run application with npm run start:dev
+6. use http://localhost:5000/api/ to test endpoint with swagger
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
