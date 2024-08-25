@@ -56,7 +56,7 @@ This is a list of things you will need to use the software and how I got to work
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/edjokpaedwin/multi-user-task-management-app.git
+   https://github.com/edwinedjokpa/multi-user-task-management-api.git
    ```
 2. create db in local postgres
 3. create a .env file in root folder, copy and replace everything in .env.example and fill in with your credentials
