@@ -13,6 +13,7 @@ import { User } from 'src/database/entities/user.entity';
 import { CreateCommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiParam,
@@ -20,14 +21,18 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Comment } from '../database/entities/comment.entity';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 @ApiTags('comments')
+@ApiBearerAuth()
 @Controller('tasks/:taskId/comments')
-@UseGuards(JwtAuthGuard)
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Create a new comment for a task',
     description:
@@ -101,6 +106,8 @@ export class CommentController {
   }
 
   @Put(':commentId')
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Update an existing comment',
     description:
@@ -184,6 +191,8 @@ export class CommentController {
   }
 
   @Delete(':commentId')
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Delete a comment',
     description:
