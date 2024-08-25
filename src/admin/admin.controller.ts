@@ -24,22 +24,28 @@ import {
   FilterTasksDto,
   UpdateTaskStatusDto,
 } from 'src/task/dto/update-task.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Task } from 'src/database/entities/task.entity';
 import { Comment } from 'src/database/entities/comment.entity';
+import { GetUser } from 'src/user/decorators/get-user.decorator';
+import { Admin } from 'src/database/entities/admin.entity';
 
 @ApiTags('admin')
+@ApiBearerAuth()
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Post('create')
-  @Roles('admin')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @ApiOperation({ summary: 'Create a new admin' })
+  @Post('register')
+  @ApiOperation({ summary: 'Admin registration' })
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: 'New admin created successfully.',
+    description: 'Admin registration successfully.',
     type: CreateAdminDto,
   })
   @ApiResponse({
@@ -50,12 +56,12 @@ export class AdminController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Unauthorized.',
   })
-  async create(@Body() createAdminDto: CreateAdminDto) {
-    const createdAdmin = await this.adminService.create(createAdminDto);
+  async register(@Body() createAdminDto: CreateAdminDto) {
+    const createdAdmin = await this.adminService.register(createAdminDto);
 
     return {
       status: 'success',
-      message: 'New admin created',
+      message: 'Admin registration successful',
       data: createdAdmin,
     };
   }
@@ -82,6 +88,36 @@ export class AdminController {
       status: 'success',
       message: 'Admin login successful',
       data: loginAdmin,
+    };
+  }
+
+  @Post('create')
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiOperation({ summary: 'Create a new admin' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'New admin created successfully.',
+    type: CreateAdminDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid input.',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Unauthorized.',
+  })
+  async create(
+    @GetUser() admin: Admin,
+    @Body() createAdminDto: CreateAdminDto,
+  ) {
+    const createdAdmin = await this.adminService.create(admin, createAdminDto);
+
+    return {
+      status: 'success',
+      message: 'New admin created',
+      data: createdAdmin,
     };
   }
 

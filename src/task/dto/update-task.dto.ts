@@ -4,11 +4,10 @@ import {
   IsArray,
   IsEmail,
   IsEnum,
-  IsInt,
   IsNotEmpty,
+  IsNumberString,
   IsOptional,
   IsString,
-  Min,
 } from 'class-validator';
 import { TaskStatus } from '../../database/entities/task.entity';
 import { ApiProperty } from '@nestjs/swagger';
@@ -75,8 +74,7 @@ export class FilterTasksDto {
     default: 1,
   })
   @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsNumberString()
   page?: number = 1;
 
   @ApiProperty({
@@ -87,8 +85,7 @@ export class FilterTasksDto {
     default: 10,
   })
   @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsNumberString()
   limit?: number = 10;
 
   @ApiProperty({

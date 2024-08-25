@@ -3,6 +3,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -37,7 +38,7 @@ export class AdminService {
     private readonly notificationService: NotificationService,
   ) {}
 
-  async create(createAdminDto: CreateAdminDto) {
+  async register(createAdminDto: CreateAdminDto) {
     const adminExists = await this.adminRepository.findOneBy({
       email: createAdminDto.email,
     });
@@ -79,6 +80,32 @@ export class AdminService {
     const accessToken = await this.jwtService.sign(payload);
 
     return { accessToken };
+  }
+
+  async create(admin: Admin, createAdminDto: CreateAdminDto) {
+    const loginAdmin = await this.adminRepository.findOneBy({ id: admin.id });
+
+    const isPermitted = loginAdmin.role === 'Super-Admin';
+
+    if (!loginAdmin || !isPermitted) {
+      throw new UnauthorizedException('You cannot create an admin');
+    }
+
+    const adminExists = await this.adminRepository.findOneBy({
+      email: createAdminDto.email,
+    });
+
+    if (adminExists) {
+      throw new ConflictException('Admin with email address already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash(createAdminDto.password, 10);
+    const newAdmin = this.adminRepository.create({
+      ...createAdminDto,
+      password: hashedPassword,
+    });
+
+    return await this.adminRepository.save(newAdmin);
   }
 
   async getTasks(filterDto: FilterTasksDto) {

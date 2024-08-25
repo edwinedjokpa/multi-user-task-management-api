@@ -25,6 +25,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiParam,
@@ -35,12 +36,13 @@ import {
 import { Task, TaskStatus } from '../database/entities/task.entity';
 
 @ApiTags('tasks')
+@ApiBearerAuth()
 @Controller('tasks')
-@Roles('user')
-@UseGuards(JwtAuthGuard, RolesGuard)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
   @ApiOperation({
     summary: 'Create a new task',
@@ -206,7 +208,8 @@ export class TaskController {
   }
 
   @Put(':taskId')
-  @UseGuards(JwtAuthGuard)
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Update a specific task by ID',
     description:
@@ -292,7 +295,8 @@ export class TaskController {
   }
 
   @Put(':taskId/status')
-  @UseGuards(JwtAuthGuard)
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Update the status of a specific task by ID',
     description:
@@ -378,6 +382,8 @@ export class TaskController {
   }
 
   @Put(':taskId/tags')
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Add tags to a specific task by ID',
     description:
@@ -448,6 +454,8 @@ export class TaskController {
   }
 
   @Put(':taskId/assign')
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Assign a user to a specific task by ID',
     description:
@@ -532,7 +540,8 @@ export class TaskController {
   }
 
   @Delete(':taskId')
-  @UseGuards(JwtAuthGuard)
+  @Roles('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     summary: 'Delete a specific task by ID',
     description:

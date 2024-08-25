@@ -15,14 +15,7 @@ async function bootstrap() {
     .setTitle('Multi User Task Management API')
     .setDescription('The is a Multi-User Task Management API')
     .setVersion('1.0')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-      },
-      'access-token',
-    )
+    .addBearerAuth()
     .addServer(`http://localhost:${PORT}`, 'Development Server')
     .build();
 
