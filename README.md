@@ -1,5 +1,3 @@
-## ReadME Top
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -37,8 +35,6 @@ This project is a comprehensive Multi-User Task Management API designed to demon
 - Class Validator
 - Relational Database(Postgres)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- GETTING STARTED -->
 
 ## Getting Started
@@ -65,8 +61,6 @@ This is a list of things you will need to use the software and how I got to work
 4. run migrations with npm run migration:run
 5. run application with npm run start:dev
 6. use http://localhost:5000/api/ to test endpoint with swagger
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 
