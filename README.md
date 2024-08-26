@@ -30,7 +30,7 @@ This project is a comprehensive Multi-User Task Management API designed to demon
 - TypeORM
 - Mailgun
 - NestJS-OpenAPI
-- Json Web Toke(JWT)
+- Json Web Tokens(JWT)
 - WebSockets
 - Class Validator
 - Relational Database(Postgres)
