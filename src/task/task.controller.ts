@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -11,14 +12,14 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto } from './dto/task.dto';
 import {
   AddTaskTagsDto,
   AssignTaskDto,
   FilterTasksDto,
   UpdateTaskDto,
   UpdateTaskStatusDto,
-} from './dto/update-task.dto';
+} from './dto/task.dto';
 import { GetUser } from 'src/user/decorators/get-user.decorator';
 import { User } from 'src/database/entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';

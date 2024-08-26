@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadRequestException,
   ConflictException,
@@ -21,7 +22,7 @@ import {
   FilterTasksDto,
   SortOrder,
   UpdateTaskStatusDto,
-} from 'src/task/dto/update-task.dto';
+} from 'src/task/dto/task.dto';
 import { Comment } from 'src/database/entities/comment.entity';
 import { NotificationService } from 'src/notification/notification.service';
 

@@ -3,7 +3,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto } from './dto/task.dto';
 import {
   AddTaskTagsDto,
   AssignTaskDto,
@@ -11,7 +11,7 @@ import {
   SortOrder,
   UpdateTaskDto,
   UpdateTaskStatusDto,
-} from './dto/update-task.dto';
+} from './dto/task.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from '../database/entities/task.entity';
 import { Repository } from 'typeorm';

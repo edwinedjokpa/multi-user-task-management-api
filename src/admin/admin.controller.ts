@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -20,10 +21,7 @@ import {
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import {
-  FilterTasksDto,
-  UpdateTaskStatusDto,
-} from 'src/task/dto/update-task.dto';
+import { FilterTasksDto, UpdateTaskStatusDto } from 'src/task/dto/task.dto';
 import {
   ApiBearerAuth,
   ApiOperation,
