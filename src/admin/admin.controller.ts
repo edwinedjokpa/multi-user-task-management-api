@@ -50,10 +50,6 @@ export class AdminController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid input.',
   })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: 'Unauthorized.',
-  })
   async register(@Body() createAdminDto: CreateAdminDto) {
     const createdAdmin = await this.adminService.register(createAdminDto);
 
@@ -73,11 +69,7 @@ export class AdminController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid login credentials.',
-  })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: 'Unauthorized.',
+    description: 'Invalid credentials.',
   })
   async login(@Body() adminAuthCredentialsDto: AdminAuthCredentialsDto) {
     const loginAdmin = await this.adminService.login(adminAuthCredentialsDto);

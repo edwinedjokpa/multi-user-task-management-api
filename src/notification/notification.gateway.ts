@@ -15,7 +15,7 @@ export class NotificationGateway
   server: Server;
 
   afterInit(server: Server) {
-    console.log('WebSocket Gateway Initialized');
+    console.log(`WebSocket Gateway Initialized:${server.emit('connected')}`);
   }
 
   handleConnection(client: Socket) {
@@ -26,7 +26,7 @@ export class NotificationGateway
     console.log('Client disconnected:', client.id);
   }
 
-  sendNotification(userId: string, message: string) {
-    this.server.to(userId).emit('notification', message);
+  sendNotification(userId: string, subject: string, message: string) {
+    this.server.to(userId).emit(subject, message);
   }
 }

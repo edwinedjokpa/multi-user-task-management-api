@@ -147,12 +147,14 @@ export class TaskService {
     if (taskExists.assignedTo) {
       await this.notificationService.createNotification(
         taskExists.assignedTo,
+        'Task status updated',
         `The status of task "${taskExists.title}" has been updated to "${updateTaskStatusDto.newStatus}"`,
       );
     }
     if (taskExists.creator) {
       await this.notificationService.createNotification(
         taskExists.creator,
+        'Task status updated',
         `The status of task "${taskExists.title}" has been updated to "${updateTaskStatusDto.newStatus}"`,
       );
     }
@@ -210,6 +212,7 @@ export class TaskService {
 
     await this.notificationService.createNotification(
       assignUserToTask,
+      'New task assigned',
       `You have been assigned to task "${taskExists.title}"`,
     );
 

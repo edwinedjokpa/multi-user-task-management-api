@@ -13,11 +13,15 @@ import {
 } from './dto/auth-credentials.dto';
 import { JwtPayload } from './interfaces/jwt.payload';
 import { JwtService } from '@nestjs/jwt';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { EmailJobData } from 'src/notification/job-types';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectQueue('emailQueue') private readonly emailQueue: Queue<EmailJobData>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -38,6 +42,13 @@ export class AuthService {
     });
 
     await this.userRepository.save(user);
+
+    // Add the email job to the email queue (for worker processing)
+    await this.emailQueue.add('sendWelcomeEmail', {
+      userEmail: user.email,
+      subject: 'Welcome to Our Service',
+      message: `Hello ${user.email},\n\nWelcome to our service. We're excited to have you!`,
+    });
 
     return user;
   }

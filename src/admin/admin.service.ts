@@ -176,12 +176,14 @@ export class AdminService {
     if (task.assignedTo) {
       await this.notificationService.createNotification(
         task.assignedTo,
+        'Task status updated',
         `The status of task "${task.title}" has been updated to "${updateTaskStatusDto.newStatus}"`,
       );
     }
     if (task.creator) {
       await this.notificationService.createNotification(
         task.creator,
+        'Task status updated',
         `The status of task "${task.title}" has been updated to "${updateTaskStatusDto.newStatus}"`,
       );
     }
